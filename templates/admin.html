@@ -12,7 +12,7 @@
             <th>Commentaires</th>
             <th>Actions</th>
         </tr>
-        {% for i, inscrit in enumerate(inscrits) %}
+        {% for inscrit in inscrits %}
         <tr>
             <form method="POST">
                 <td>{{ inscrit.nom }}</td>
@@ -27,7 +27,7 @@
                 </td>
                 <td><input type="text" name="commentaire" value="{{ inscrit.commentaire }}"></td>
                 <td>
-                    <input type="hidden" name="index" value="{{ i }}">
+                    <input type="hidden" name="index" value="{{ loop.index0 }}">
                     <button type="submit" name="action" value="save">💾</button>
                     <button type="submit" name="action" value="delete" style="background:red;">🗑️</button>
                 </td>
