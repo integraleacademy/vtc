@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Admin - Inscriptions VTC{% endblock %}
 {% block content %}
-    <h2>Administration - Inscriptions Chauffeur VTC</h2>
+    <h2 style="margin-bottom:20px;">Administration - Inscriptions Chauffeur VTC</h2>
     <table>
         <tr>
             <th>Nom</th>
@@ -20,16 +20,26 @@
                 <td>{{ inscrit.identifiant }}</td>
                 <td>{{ inscrit.motdepasse }}</td>
                 <td>
-                    <select name="statut">
-                        <option value="A INSCRIRE A L'EXAMEN" {% if inscrit.statut == "A INSCRIRE A L'EXAMEN" %}selected{% endif %}>A INSCRIRE A L'EXAMEN</option>
-                        <option value="INSCRIT A L'EXAMEN" {% if inscrit.statut == "INSCRIT A L'EXAMEN" %}selected{% endif %}>INSCRIT A L'EXAMEN</option>
+                    <select name="statut" style="min-width:180px; padding:5px;">
+                        <option value="A INSCRIRE A L'EXAMEN" 
+                                {% if inscrit.statut == "A INSCRIRE A L'EXAMEN" %}selected{% endif %}
+                                style="color:red;">A INSCRIRE A L'EXAMEN</option>
+                        <option value="INSCRIT A L'EXAMEN" 
+                                {% if inscrit.statut == "INSCRIT A L'EXAMEN" %}selected{% endif %}
+                                style="color:green;">INSCRIT A L'EXAMEN</option>
                     </select>
                 </td>
-                <td><input type="text" name="commentaire" value="{{ inscrit.commentaire }}"></td>
-                <td>
+                <td><input type="text" name="commentaire" value="{{ inscrit.commentaire }}" style="width:100%;"></td>
+                <td style="text-align:center;">
                     <input type="hidden" name="index" value="{{ loop.index0 }}">
-                    <button type="submit" name="action" value="save">💾</button>
-                    <button type="submit" name="action" value="delete" style="background:red;">🗑️</button>
+                    <button type="submit" name="action" value="save" 
+                            style="background:#2ecc71; border:none; padding:6px 10px; border-radius:6px; cursor:pointer;">
+                        💾
+                    </button>
+                    <button type="submit" name="action" value="delete" 
+                            style="background:#e74c3c; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; margin-left:5px;">
+                        🗑️
+                    </button>
                 </td>
             </form>
         </tr>
