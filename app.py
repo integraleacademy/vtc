@@ -58,6 +58,27 @@ def admin():
 
     return render_template("admin.html", inscrits=data)
 
+# -----------------------
+# Route publique pour exposer data.json (avec CORS)
+# -----------------------
+@app.route("/data.json")
+def data_json():
+    """Renvoie le contenu du fichier data.json pour la plateforme VTC"""
+    try:
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
+            contenu = f.read()
+        headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+        return contenu, 200, headers
+    except Exception as e:
+        print("Erreur lecture data.json:", e)
+        return {"error": "impossible de lire les données"}, 500
+
+
+
 if __name__ == "__main__":
     os.makedirs("/mnt/data", exist_ok=True)
     app.run(host="0.0.0.0", port=10000)
+
