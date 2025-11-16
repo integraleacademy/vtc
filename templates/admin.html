@@ -54,15 +54,16 @@
                     </span>
                 {% endif %}
 
+                <!-- SELECT POUR MODIFIER LE STATUT (SANS DOUBLON) -->
                 <select name="statut"
                     style="padding:8px; border-radius:8px; border:1px solid #ccc; width:100%; margin-top:6px; font-size:14px;">
                     <option value="A INSCRIRE A L'EXAMEN"
                         {% if inscrit.statut == "A INSCRIRE A L'EXAMEN" %}selected{% endif %}>
-                        A INSCRIRE A L'EXAMEN
+                        ➡️ Passer en : A inscrire
                     </option>
                     <option value="INSCRIT A L'EXAMEN"
                         {% if inscrit.statut == "INSCRIT A L'EXAMEN" %}selected{% endif %}>
-                        INSCRIT A L'EXAMEN
+                        ➡️ Passer en : Inscrit
                     </option>
                 </select>
             </td>
