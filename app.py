@@ -47,14 +47,27 @@ def admin():
         action = request.form.get("action")
         index = int(request.form.get("index"))
 
-        if action == "save":
-            data[index]["statut"] = request.form.get("statut")
+        # 🔁 TOGGLE DU STATUT  
+        if action == "toggle":
+            if data[index]["statut"] == "INSCRIT A L'EXAMEN":
+                data[index]["statut"] = "A INSCRIRE A L'EXAMEN"
+            else:
+                data[index]["statut"] = "INSCRIT A L'EXAMEN"
+
+            save_data(data)
+            return redirect(url_for("admin"))
+
+        # 💾 ENREGISTRER COMMENTAIRE  
+        elif action == "save":
             data[index]["commentaire"] = request.form.get("commentaire")
+            save_data(data)
+            return redirect(url_for("admin"))
+
+        # 🗑️ SUPPRESSION  
         elif action == "delete":
             data.pop(index)
-
-        save_data(data)
-        return redirect(url_for("admin"))
+            save_data(data)
+            return redirect(url_for("admin"))
 
     return render_template("admin.html", inscrits=data)
 
@@ -77,8 +90,6 @@ def data_json():
         return {"error": "impossible de lire les données"}, 500
 
 
-
 if __name__ == "__main__":
     os.makedirs("/mnt/data", exist_ok=True)
     app.run(host="0.0.0.0", port=10000)
-
