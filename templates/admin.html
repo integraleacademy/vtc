@@ -54,17 +54,20 @@
                     </span>
                 {% endif %}
 
-                <!-- SELECT POUR MODIFIER LE STATUT (SANS DOUBLON) -->
+                <!-- SELECT : juste les statuts simples, pas de doublon -->
                 <select name="statut"
                     style="padding:8px; border-radius:8px; border:1px solid #ccc; width:100%; margin-top:6px; font-size:14px;">
+                    
                     <option value="A INSCRIRE A L'EXAMEN"
                         {% if inscrit.statut == "A INSCRIRE A L'EXAMEN" %}selected{% endif %}>
-                        ➡️ Passer en : A inscrire
+                        A INSCRIRE A L'EXAMEN
                     </option>
+                    
                     <option value="INSCRIT A L'EXAMEN"
                         {% if inscrit.statut == "INSCRIT A L'EXAMEN" %}selected{% endif %}>
-                        ➡️ Passer en : Inscrit
+                        INSCRIT A L'EXAMEN
                     </option>
+
                 </select>
             </td>
 
