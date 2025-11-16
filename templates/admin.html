@@ -19,56 +19,31 @@
 
     {% for inscrit in inscrits %}
     <tr style="background:white; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+
         <form method="POST">
+
             <td style="padding:12px 16px;">{{ inscrit.nom }}</td>
             <td style="padding:12px 16px;">{{ inscrit.prenom }}</td>
             <td style="padding:12px 16px;">{{ inscrit.identifiant }}</td>
             <td style="padding:12px 16px;">{{ inscrit.motdepasse }}</td>
 
-            <!-- STATUT -->
+            <!-- STATUT AVEC TOGGLE BUTTON -->
             <td style="padding:12px 16px;">
+                <input type="hidden" name="index" value="{{ loop.index0 }}">
 
                 {% if inscrit.statut == "INSCRIT A L'EXAMEN" %}
-                    <span style="
-                        background:#27ae60;
-                        color:white;
-                        padding:6px 12px;
-                        border-radius:8px;
-                        font-size:13px;
-                        font-weight:600;
-                        display:inline-block;
-                        margin-bottom:6px;">
+                    <button type="submit" name="action" value="toggle"
+                        style="background:#27ae60;color:white;font-weight:600;
+                               padding:6px 14px;border-radius:8px;border:none;cursor:pointer;">
                         ✔ Inscrit à l’examen
-                    </span>
+                    </button>
                 {% else %}
-                    <span style="
-                        background:#e74c3c;
-                        color:white;
-                        padding:6px 12px;
-                        border-radius:8px;
-                        font-size:13px;
-                        font-weight:600;
-                        display:inline-block;
-                        margin-bottom:6px;">
-                        ⚠ À inscrire
-                    </span>
+                    <button type="submit" name="action" value="toggle"
+                        style="background:#e74c3c;color:white;font-weight:600;
+                               padding:6px 14px;border-radius:8px;border:none;cursor:pointer;">
+                        ⚠ A inscrire
+                    </button>
                 {% endif %}
-
-                <!-- SELECT : juste les statuts simples, pas de doublon -->
-                <select name="statut"
-                    style="padding:8px; border-radius:8px; border:1px solid #ccc; width:100%; margin-top:6px; font-size:14px;">
-                    
-                    <option value="A INSCRIRE A L'EXAMEN"
-                        {% if inscrit.statut == "A INSCRIRE A L'EXAMEN" %}selected{% endif %}>
-                        A INSCRIRE A L'EXAMEN
-                    </option>
-                    
-                    <option value="INSCRIT A L'EXAMEN"
-                        {% if inscrit.statut == "INSCRIT A L'EXAMEN" %}selected{% endif %}>
-                        INSCRIT A L'EXAMEN
-                    </option>
-
-                </select>
             </td>
 
             <!-- COMMENTAIRE -->
@@ -80,8 +55,6 @@
 
             <!-- ACTIONS -->
             <td style="padding:12px 16px; min-width:160px;">
-                <input type="hidden" name="index" value="{{ loop.index0 }}">
-
                 <button type="submit" name="action" value="save"
                     style="
                         background:#27ae60;
@@ -109,7 +82,9 @@
                     🗑️ Supprimer
                 </button>
             </td>
+
         </form>
+
     </tr>
     {% endfor %}
 </table>
