@@ -122,6 +122,22 @@ def data_json():
         print("Erreur lecture data.json:", e)
         return {"error": "impossible de lire les données"}, 500
 
+@app.route("/summary.json")
+def summary_json():
+    """Résumé pour la plateforme gestion : dossiers à inscrire + livres à envoyer"""
+    data = load_data()
+
+    a_inscrire = sum(1 for x in data if x.get("statut") == "A INSCRIRE A L'EXAMEN")
+    livres_a_envoyer = sum(1 for x in data if x.get("livre") == "A ENVOYER")
+
+    summary = {
+        "a_inscrire": a_inscrire,
+        "livres_a_envoyer": livres_a_envoyer
+    }
+
+    return summary, 200, {"Access-Control-Allow-Origin": "*"}
+
+
 
 if __name__ == "__main__":
     os.makedirs("/mnt/data", exist_ok=True)
