@@ -23,6 +23,10 @@ def index():
         prenom = request.form.get("prenom")
         identifiant = request.form.get("identifiant")
         motdepasse = request.form.get("motdepasse")
+        adresse = request.form.get("adresse")
+        codepostal = request.form.get("codepostal")
+        ville = request.form.get("ville")
+
 
         data = load_data()
         data.append({
@@ -30,9 +34,14 @@ def index():
             "prenom": prenom,
             "identifiant": identifiant,
             "motdepasse": motdepasse,
+            "adresse": adresse,
+            "codepostal": codepostal,
+            "ville": ville,
             "statut": "A INSCRIRE A L'EXAMEN",
-            "commentaire": ""
-        })
+            "commentaire": "",
+            "livre": "A ENVOYER"
+})
+
         save_data(data)
 
         return render_template("merci.html")
