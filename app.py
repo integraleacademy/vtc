@@ -9,8 +9,21 @@ DATA_FILE = "/mnt/data/data.json"
 def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+
+        # 🔒 Sécurisation : ajouter les champs manquants pour éviter toute erreur
+        for item in data:
+            item.setdefault("adresse", "")
+            item.setdefault("codepostal", "")
+            item.setdefault("ville", "")
+            item.setdefault("livre", "A ENVOYER")
+            item.setdefault("commentaire", "")
+            item.setdefault("statut", "A INSCRIRE A L'EXAMEN")
+
+        return data
+    
     return []
+
 
 def save_data(data):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
@@ -65,6 +78,17 @@ def admin():
 
             save_data(data)
             return redirect(url_for("admin"))
+
+        # 📦 TOGGLE DU LIVRE (A ENVOYER / ENVOYÉ)
+        elif action == "toggle_livre":
+            if data[index].get("livre") == "ENVOYÉ":
+                data[index]["livre"] = "A ENVOYER"
+            else:
+                data[index]["livre"] = "ENVOYÉ"
+
+            save_data(data)
+            return redirect(url_for("admin"))
+
 
         # 💾 ENREGISTRER COMMENTAIRE  
         elif action == "save":
