@@ -77,6 +77,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/btsmos")
+def bts_mos():
+    return render_template("bts_mos.html")
+
+
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     data = load_data()
