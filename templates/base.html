@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Intégrale Academy - Formations professionnelles et BTS{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #101827;
+            --navy-soft: #1f2b44;
+            --ink: #101827;
+            --muted: #607089;
+            --orange: #ff8a00;
+            --orange-2: #fb5b22;
+            --gold: #f6c65b;
+            --green: #22c768;
+            --cream: #fff7e7;
+            --paper: #ffffff;
+            --line: #e9edf4;
+            --shadow-soft: 0 24px 70px rgba(16, 24, 39, 0.10);
+            --shadow-orange: 0 18px 38px rgba(251, 91, 34, 0.28);
+            --radius: 28px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background:
+                linear-gradient(rgba(16, 24, 39, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 24, 39, 0.035) 1px, transparent 1px),
+                radial-gradient(circle at 52% 5%, rgba(255, 138, 0, 0.17), transparent 26rem),
+                radial-gradient(circle at 78% 32%, rgba(251, 91, 34, 0.10), transparent 22rem),
+                linear-gradient(180deg, #ffffff 0%, #fffaf1 42%, #ffffff 100%);
+            background-size: 40px 40px, 40px 40px, auto, auto, auto;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 76px 0 auto;
+            height: 430px;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(255, 196, 91, 0.32), transparent 64%);
+            filter: blur(18px);
+            z-index: -1;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.92);
+            border-bottom: 1px solid rgba(233, 237, 244, 0.88);
+            box-shadow: 0 14px 35px rgba(16, 24, 39, 0.05);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav-wrap {
+            width: min(1680px, calc(100% - 48px));
+            min-height: 76px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            display: inline-grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            color: #fff;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-2) 100%);
+            box-shadow: 0 12px 30px rgba(255, 138, 0, 0.22);
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: -0.08em;
+        }
+
+        .brand-text {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+        }
+
+        .brand-text span:first-child {
+            color: var(--orange-2);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: clamp(18px, 3vw, 34px);
+            color: #40506a;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .main-nav a {
+            position: relative;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .main-nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -10px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--orange), var(--orange-2));
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.2s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--navy);
+        }
+
+        .main-nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn,
+        button.btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 13px 22px;
+            border: 0;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 850;
+            line-height: 1.2;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .btn:hover,
+        button.btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: #fff;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-2) 100%);
+            box-shadow: var(--shadow-orange);
+        }
+
+        .btn-dark {
+            color: #fff;
+            background: var(--navy);
+            box-shadow: 0 18px 34px rgba(16, 24, 39, 0.20);
+        }
+
+        .btn-ghost {
+            color: #26344d;
+            background: #fff;
+            border: 1px solid var(--line);
+            box-shadow: 0 12px 28px rgba(16, 24, 39, 0.06);
+        }
+
+        .btn-green {
+            color: #fff;
+            background: linear-gradient(135deg, #27d866 0%, #1fc45d 100%);
+            box-shadow: 0 18px 34px rgba(34, 199, 104, 0.24);
+        }
+
+        .container,
+        .container-full,
+        .landing-shell {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .landing-shell {
+            padding: 0 0 80px;
+        }
+
+        .page-section {
+            width: min(1680px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        body:has(.mos-hero) .landing-shell {
+            width: min(1900px, calc(100% - 32px));
+        }
+
+        .container {
+            max-width: 860px;
+            margin-top: 34px;
+            margin-bottom: 42px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .container-full {
+            width: min(1500px, calc(100% - 28px));
+            margin-top: 30px;
+            margin-bottom: 42px;
+            padding: 24px;
+            overflow-x: auto;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--navy);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2e3d53;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #dce2ec;
+            border-radius: 15px;
+            color: var(--ink);
+            background: #fff;
+            font: inherit;
+            outline: none;
+            transition: border-color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 4px rgba(255, 138, 0, 0.14);
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 10px;
+            color: var(--navy);
+            text-align: left;
+            background: #fff1d8;
+        }
+
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (max-width: 1080px) {
+            .nav-wrap {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                padding: 16px 0;
+            }
+
+            .main-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 6px;
+            }
+
+            .nav-actions {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .brand-logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .brand-text {
+                font-size: 19px;
+            }
+
+            .nav-actions {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .container,
+            .container-full,
+            .landing-shell {
+                width: min(100% - 20px, 1680px);
+            }
+
+            .landing-shell {
+                padding-top: 52px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="nav-wrap">
+            <a class="brand" href="{{ url_for('index') }}" aria-label="Accueil Intégrale Academy">
+                <span class="brand-logo" aria-hidden="true">IA</span>
+                <span class="brand-text"><span>Intégrale</span><span>Academy</span></span>
+            </a>
+            <nav class="main-nav" aria-label="Navigation principale">
+                <a href="{{ url_for('index') }}#formation">Accueil</a>
+                <a href="{{ url_for('index') }}#formations">Formations pro</a>
+                <a href="{{ url_for('index') }}#bts">BTS</a>
+                <a href="{{ url_for('index') }}#ecole">Notre école</a>
+                <a href="{{ url_for('index') }}#campus">Campus</a>
+                <a href="{{ url_for('admin') }}">Admin</a>
+            </nav>
+            <div class="nav-actions">
+                <a class="btn btn-ghost" href="tel:+33422470768">Appelez-nous</a>
+                <a class="btn btn-dark" href="{{ url_for('index') }}#formations">Découvrir les formations →</a>
+            </div>
+        </div>
+    </header>
+    <main class="{% if request.path == '/' %}landing-shell{% elif 'admin' in request.path %}container-full{% else %}container{% endif %}">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
