@@ -5,7 +5,7 @@
     .mos-hero {
         position: relative;
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(380px, 0.8fr);
+        grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
         gap: clamp(28px, 5vw, 62px);
         align-items: center;
         min-height: 610px;
@@ -51,9 +51,9 @@
         max-width: 760px;
         margin-bottom: 24px;
         font-family: 'Poppins', 'Inter', sans-serif;
-        font-size: clamp(46px, 6.4vw, 82px);
-        line-height: 0.95;
-        letter-spacing: -0.07em;
+        font-size: clamp(42px, 5vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
         font-weight: 900;
     }
 
@@ -138,11 +138,13 @@
     }
 
     .key-grid {
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
         margin-top: 24px;
     }
 
     .key-card {
-        padding: 16px;
+        min-width: 0;
+        padding: 18px;
         border: 1px solid rgba(255, 255, 255, 0.13);
         border-radius: 18px;
         background: rgba(255, 255, 255, 0.08);
@@ -169,12 +171,18 @@
     .key-card strong {
         display: block;
         color: #fff;
-        font-size: 19px;
+        font-size: clamp(22px, 2.3vw, 34px);
+        line-height: 1.05;
+        overflow-wrap: anywhere;
     }
 
     .key-card small {
-        color: rgba(255, 255, 255, 0.64);
-        font-weight: 700;
+        display: block;
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.70);
+        font-size: 16px;
+        line-height: 1.35;
+        font-weight: 800;
     }
 
     .section-panel {
@@ -216,6 +224,7 @@
     .route-card,
     .exam-card {
         min-height: 205px;
+        min-width: 0;
         padding: 24px;
     }
 
@@ -226,7 +235,7 @@
         margin-bottom: 10px;
         color: var(--navy);
         font-family: 'Poppins', 'Inter', sans-serif;
-        font-size: 21px;
+        font-size: clamp(20px, 1.6vw, 25px);
         line-height: 1.12;
         letter-spacing: -0.04em;
     }
@@ -237,6 +246,7 @@
     .exam-card p {
         color: var(--muted);
         line-height: 1.58;
+        overflow-wrap: anywhere;
     }
 
     .split-section {
@@ -278,6 +288,77 @@
         padding-left: 20px;
     }
 
+    .wide-strip {
+        width: min(1680px, calc(100vw - 32px));
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .info-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .info-list li {
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: #fff;
+        color: #465670;
+        font-weight: 750;
+        line-height: 1.45;
+    }
+
+    .info-list li::before {
+        content: "✓";
+        margin-right: 8px;
+        color: var(--green);
+        font-weight: 900;
+    }
+
+    .timeline {
+        display: grid;
+        gap: 14px;
+    }
+
+    .timeline-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: #fff;
+    }
+
+    .timeline-item strong {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 15px;
+        color: #fff;
+        background: linear-gradient(135deg, var(--orange), var(--orange-2));
+    }
+
+    .timeline-item h3 {
+        margin-bottom: 6px;
+        color: var(--navy);
+        font-family: 'Poppins', 'Inter', sans-serif;
+        letter-spacing: -0.04em;
+    }
+
+    .timeline-item p {
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.55;
+    }
+
     @media (max-width: 1060px) {
         .mos-hero,
         .split-section {
@@ -288,7 +369,8 @@
         .detail-grid,
         .program-grid,
         .after-grid,
-        .benefit-grid {
+        .benefit-grid,
+        .info-list {
             grid-template-columns: 1fr;
         }
     }
@@ -425,6 +507,46 @@
             <h3>Cours made in Intégrale Academy</h3>
             <p>Ateliers découverte : cross-training, sport, théâtre d’improvisation, gestion du stress, masterclass et visites d’entreprises.</p>
         </article>
+    </div>
+</section>
+
+<section class="section-panel wide-strip">
+    <div class="section-heading">
+        <h2>Comment se déroule l'inscription ?</h2>
+        <p>La page originale insiste sur un parcours simple : candidature, recherche d'entreprise, contrat d'apprentissage puis rentrée en formation.</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item"><strong>1</strong><div><h3>Pré-inscription en ligne</h3><p>Vous remplissez le formulaire de pré-inscription BTS 2026 pour indiquer votre profil et le format souhaité.</p></div></div>
+        <div class="timeline-item"><strong>2</strong><div><h3>Échange avec un conseiller</h3><p>L'équipe Intégrale Academy vérifie votre projet, vos prérequis et vous guide dans les étapes administratives.</p></div></div>
+        <div class="timeline-item"><strong>3</strong><div><h3>Recherche d'entreprise</h3><p>Le BTS MOS se réalise en contrat d'apprentissage avec un rythme alterné école / entreprise.</p></div></div>
+        <div class="timeline-item"><strong>4</strong><div><h3>Démarrage des cours</h3><p>Vous commencez en présentiel à Puget-sur-Argens ou en classe virtuelle avec Paris Online.</p></div></div>
+    </div>
+</section>
+
+<section class="section-panel">
+    <div class="section-heading">
+        <h2>Prérequis, public et accessibilité.</h2>
+        <p>Des informations pratiques manquaient : elles sont maintenant visibles pour mieux répondre aux questions des candidats.</p>
+    </div>
+    <ul class="info-list">
+        <li>Être titulaire d'un baccalauréat ou d'un diplôme de niveau 4.</li>
+        <li>Formation ouverte aux candidats en contrat d'apprentissage.</li>
+        <li>Parcours adapté aux projets d'encadrement en sécurité privée et sûreté.</li>
+        <li>Accompagnement possible pour la recherche d'entreprise selon le profil.</li>
+        <li>Formation gratuite pour l'apprenti, prise en charge via l'OPCO.</li>
+        <li>Modalités en présentiel ou à distance selon votre situation.</li>
+    </ul>
+</section>
+
+<section class="section-panel">
+    <div class="section-heading">
+        <h2>Moyens pédagogiques.</h2>
+        <p>La refonte met davantage en avant les conditions d'apprentissage évoquées sur la page BTS MOS.</p>
+    </div>
+    <div class="program-grid">
+        <article class="program-card"><span>ZOOM</span><h3>Visioconférence en direct</h3><p>Pour le format 100% en ligne : cours en direct, échanges avec les formateurs et exercices à distance.</p></article>
+        <article class="program-card"><span>LMS</span><h3>E-learning</h3><p>Accès aux supports, exercices, ressources et contenus complémentaires via l'espace numérique.</p></article>
+        <article class="program-card"><span>PCS</span><h3>Poste central de sécurité</h3><p>Mise en situation professionnelle et découverte des outils de pilotage d'une prestation de sécurité.</p></article>
     </div>
 </section>
 
