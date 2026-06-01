@@ -2,193 +2,327 @@
 {% block title %}Inscription Examen Chauffeur VTC - Intégrale Academy{% endblock %}
 {% block content %}
 <style>
-    .hero {
+    .academy-hero {
         position: relative;
+        overflow: hidden;
         display: grid;
-        grid-template-columns: minmax(0, 1.02fr) minmax(380px, 0.78fr);
-        gap: 46px;
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr) 390px;
+        gap: clamp(26px, 5vw, 56px);
+        align-items: stretch;
+        min-height: 560px;
+        padding: clamp(28px, 5vw, 58px);
+        color: white;
+        background:
+            linear-gradient(128deg, rgba(22, 37, 58, 0.98) 0%, rgba(33, 55, 84, 0.94) 47%, rgba(233, 87, 47, 0.86) 100%),
+            radial-gradient(circle at 78% 18%, rgba(244, 196, 90, 0.45), transparent 24rem);
+        border-radius: 34px;
+        box-shadow: var(--shadow-strong);
     }
 
-    .hero::after {
+    .academy-hero::before,
+    .academy-hero::after {
         content: "";
         position: absolute;
-        right: -7%;
-        bottom: -14%;
-        width: 52%;
-        height: 45%;
+        pointer-events: none;
         border-radius: 999px;
-        background: radial-gradient(circle, rgba(244, 196, 90, 0.30), transparent 68%);
-        z-index: -1;
     }
 
-    .eyebrow {
+    .academy-hero::before {
+        width: 520px;
+        height: 520px;
+        right: -170px;
+        top: -170px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: inset 0 0 0 38px rgba(255, 255, 255, 0.035);
+    }
+
+    .academy-hero::after {
+        width: 430px;
+        height: 430px;
+        left: 42%;
+        bottom: -260px;
+        background: rgba(244, 196, 90, 0.18);
+        filter: blur(6px);
+    }
+
+    .hero-main,
+    .hero-badge-panel {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-kicker {
         display: inline-flex;
         align-items: center;
-        gap: 9px;
-        margin-bottom: 24px;
-        padding: 9px 16px;
-        border: 1px solid rgba(244, 196, 90, 0.44);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow: 0 10px 28px rgba(244, 196, 90, 0.16);
-        color: #8a4b10;
+        gap: 10px;
+        margin-bottom: 30px;
+        padding: 10px 14px;
+        border: 1px solid rgba(244, 196, 90, 0.45);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.10);
+        color: #ffe8a9;
         font-weight: 850;
-        font-size: 14px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        font-size: 12px;
     }
 
-    .eyebrow-dot {
-        width: 9px;
-        height: 9px;
+    .hero-kicker::before {
+        content: "";
+        width: 8px;
+        height: 30px;
         border-radius: 999px;
-        background: linear-gradient(135deg, var(--gold), var(--orange));
-        box-shadow: 0 0 0 6px rgba(244, 196, 90, 0.18);
+        background: linear-gradient(180deg, var(--gold), var(--coral));
     }
 
     .hero-title {
-        max-width: 720px;
-        margin-bottom: 22px;
-        color: var(--navy);
-        font-size: clamp(48px, 6vw, 82px);
-        line-height: 0.93;
-        letter-spacing: -0.075em;
-        font-weight: 950;
+        max-width: 760px;
+        margin-bottom: 24px;
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: clamp(42px, 6.3vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+        font-weight: 800;
     }
 
-    .hero-title .gradient {
+    .hero-title strong {
         display: block;
-        background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 48%, #ef4444 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+        color: var(--gold);
+        font-weight: 800;
     }
 
     .hero-copy {
-        max-width: 610px;
-        margin-bottom: 30px;
-        color: var(--muted);
-        font-size: clamp(18px, 2vw, 22px);
-        line-height: 1.42;
+        max-width: 680px;
+        margin-bottom: 32px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: clamp(18px, 2vw, 21px);
+        line-height: 1.55;
     }
 
     .hero-copy strong {
-        color: #344154;
-        font-weight: 900;
+        color: white;
     }
 
     .hero-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 14px;
-        margin-bottom: 28px;
+        margin-bottom: 34px;
     }
 
     .hero-actions .btn {
-        min-width: 210px;
-        min-height: 62px;
-        border-radius: 16px;
-        font-size: 17px;
+        min-height: 58px;
+        padding-inline: 24px;
     }
 
-    .trust-list {
+    .campus-list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, max-content));
-        gap: 12px 22px;
-        color: #67748a;
-        font-size: 14px;
-        font-weight: 800;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        max-width: 720px;
     }
 
-    .trust-list span {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
+    .campus-pill {
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
     }
 
-    .trust-list span::before {
-        content: "✓";
-        display: inline-grid;
+    .campus-pill span {
+        display: block;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .campus-pill strong {
+        display: block;
+        margin-top: 4px;
+        color: white;
+        font-size: 15px;
+    }
+
+    .hero-badge-panel {
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        min-height: 100%;
+        padding: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.10);
+        backdrop-filter: blur(12px);
+    }
+
+    .hero-logo-card {
+        width: min(100%, 300px);
+        aspect-ratio: 1;
+        display: grid;
         place-items: center;
-        width: 16px;
-        height: 16px;
+        margin-bottom: 24px;
+        border-radius: 50%;
+        background:
+            radial-gradient(circle, rgba(244, 196, 90, 0.22), transparent 64%),
+            rgba(13, 22, 36, 0.42);
+        box-shadow: inset 0 0 0 1px rgba(244, 196, 90, 0.24), 0 22px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-logo-card img {
+        width: 70%;
+        height: 70%;
+        object-fit: contain;
+        filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.30));
+    }
+
+    .panel-title {
+        margin-bottom: 10px;
+        color: white;
+        font-size: 23px;
+        font-weight: 900;
+        text-align: center;
+        letter-spacing: -0.04em;
+    }
+
+    .panel-copy {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.74);
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    .application-layout {
+        display: grid;
+        grid-template-columns: minmax(270px, 0.72fr) minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 28px;
+    }
+
+    .support-card,
+    .application-card,
+    .path-card {
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(231, 234, 240, 0.95);
+        border-radius: 28px;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .support-card {
+        position: sticky;
+        top: 112px;
+        overflow: hidden;
+        padding: 28px;
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 248, 235, 0.94)),
+            radial-gradient(circle at top right, rgba(244, 196, 90, 0.26), transparent 42%);
+    }
+
+    .support-card::before {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 6px;
+        margin-bottom: 22px;
         border-radius: 999px;
-        color: #10b759;
-        border: 2px solid #2bd66d;
-        font-size: 11px;
+        background: linear-gradient(90deg, var(--gold), var(--coral));
+    }
+
+    .support-card h2,
+    .application-card h2,
+    .path-card h2 {
+        margin-bottom: 12px;
+        color: var(--midnight);
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: 30px;
+        line-height: 1.12;
+        letter-spacing: -0.045em;
+    }
+
+    .support-card p,
+    .application-card p,
+    .path-card p {
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .check-list {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .check-list li {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 10px;
+        align-items: start;
+        color: #344154;
+        font-weight: 750;
+        line-height: 1.35;
+    }
+
+    .check-list li::before {
+        content: "✓";
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 10px;
+        color: white;
+        background: var(--success);
+        font-size: 13px;
         font-weight: 900;
     }
 
-    .signup-card {
-        position: relative;
-        padding: 14px;
-        border-radius: var(--radius-xl);
-        background: var(--navy);
-        box-shadow: 0 34px 90px rgba(16, 24, 39, 0.24);
+    .application-card {
+        overflow: hidden;
     }
 
-    .signup-card::before {
-        content: "";
-        position: absolute;
-        inset: auto 10% -26px;
-        height: 56px;
-        border-radius: 50%;
-        background: rgba(240, 90, 22, 0.28);
-        filter: blur(24px);
-        z-index: -1;
-    }
-
-    .browser-bar {
-        display: flex;
+    .form-heading {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
         align-items: center;
-        justify-content: space-between;
-        padding: 2px 12px 12px;
-        color: #8090aa;
-        font-size: 13px;
-        font-weight: 700;
-    }
-
-    .traffic-lights {
-        display: flex;
-        gap: 8px;
-    }
-
-    .traffic-lights i {
-        width: 12px;
-        height: 12px;
-        border-radius: 999px;
-        display: block;
-    }
-
-    .traffic-lights i:nth-child(1) { background: #ff5f57; }
-    .traffic-lights i:nth-child(2) { background: #ffbd2e; }
-    .traffic-lights i:nth-child(3) { background: #28c840; }
-
-    .form-panel {
-        border-radius: 20px;
+        padding: clamp(24px, 4vw, 34px);
+        color: white;
         background:
-            linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94)),
-            radial-gradient(circle at top right, rgba(244, 196, 90, 0.30), transparent 34%);
-        padding: clamp(22px, 3vw, 30px);
+            linear-gradient(135deg, var(--midnight) 0%, var(--midnight-2) 62%, rgba(244, 196, 90, 0.92) 170%);
     }
 
-    .form-panel h2 {
+    .form-heading h2 {
         margin-bottom: 8px;
-        color: var(--navy);
-        font-size: 28px;
-        letter-spacing: -0.04em;
-        line-height: 1.05;
+        color: white;
     }
 
-    .form-panel p {
-        margin-bottom: 22px;
-        color: var(--muted);
-        line-height: 1.5;
+    .form-heading p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.76);
+    }
+
+    .form-badge {
+        min-width: 108px;
+        padding: 13px 14px;
+        border-radius: 18px;
+        color: var(--midnight);
+        text-align: center;
+        background: var(--gold);
+        font-weight: 900;
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .application-form {
+        padding: clamp(24px, 4vw, 34px);
     }
 
     .form-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 15px;
+        gap: 18px;
     }
 
     .field-full {
@@ -199,97 +333,110 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
-        margin-top: 22px;
+        gap: 18px;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
     }
 
     .submit-row small {
-        color: #718096;
-        line-height: 1.35;
+        max-width: 440px;
+        color: var(--muted);
+        line-height: 1.45;
         font-weight: 650;
     }
 
     .submit-row .btn {
-        border-radius: 16px;
-        padding-inline: 24px;
-        min-height: 58px;
-        font-size: 16px;
+        min-height: 56px;
         white-space: nowrap;
     }
 
-    .feature-strip {
+    .path-card {
+        margin-top: 24px;
+        padding: clamp(24px, 4vw, 34px);
+    }
+
+    .path-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-        margin-top: 58px;
+        gap: 16px;
+        margin-top: 22px;
     }
 
-    .feature-card {
+    .path-step {
         position: relative;
-        overflow: hidden;
         min-height: 190px;
-        padding: 24px;
-        border: 1px solid rgba(233, 237, 245, 0.9);
-        border-radius: 26px;
-        background: rgba(255, 255, 255, 0.76);
-        box-shadow: 0 18px 45px rgba(16, 24, 39, 0.08);
+        padding: 22px;
+        overflow: hidden;
+        border-radius: 22px;
+        background: #f7f9fc;
+        border: 1px solid var(--line);
     }
 
-    .feature-card::after {
-        content: "";
+    .path-step::after {
+        content: attr(data-step);
         position: absolute;
-        right: -36px;
-        top: -36px;
-        width: 110px;
-        height: 110px;
-        border-radius: 999px;
-        background: rgba(244, 196, 90, 0.24);
+        right: 14px;
+        bottom: -8px;
+        color: rgba(22, 37, 58, 0.06);
+        font-size: 86px;
+        font-weight: 900;
+        line-height: 1;
     }
 
-    .feature-icon {
+    .path-step span {
         display: inline-grid;
         place-items: center;
-        width: 46px;
-        height: 46px;
+        width: 42px;
+        height: 42px;
         margin-bottom: 18px;
-        border-radius: 15px;
-        background: linear-gradient(135deg, var(--orange), var(--orange-deep));
-        color: white;
-        font-size: 22px;
-        box-shadow: 0 14px 26px rgba(240, 90, 22, 0.22);
+        border-radius: 14px;
+        color: var(--midnight);
+        background: var(--gold);
+        font-weight: 900;
     }
 
-    .feature-card h3 {
+    .path-step h3 {
         margin-bottom: 8px;
-        color: var(--navy);
-        font-size: 20px;
-        letter-spacing: -0.035em;
+        color: var(--midnight);
+        font-size: 19px;
+        letter-spacing: -0.03em;
     }
 
-    .feature-card p {
+    .path-step p {
         margin-bottom: 0;
-        color: var(--muted);
-        line-height: 1.55;
+        font-size: 15px;
     }
 
-    @media (max-width: 1050px) {
-        .hero {
+    @media (max-width: 1060px) {
+        .academy-hero,
+        .application-layout {
             grid-template-columns: 1fr;
         }
 
-        .signup-card {
-            max-width: 720px;
+        .hero-badge-panel,
+        .support-card {
+            position: relative;
+            top: auto;
+        }
+
+        .campus-list,
+        .path-grid {
+            grid-template-columns: 1fr;
         }
     }
 
-    @media (max-width: 760px) {
-        .landing-shell {
-            padding-top: 34px;
+    @media (max-width: 720px) {
+        .academy-hero {
+            padding: 24px;
+            border-radius: 26px;
         }
 
         .hero-actions,
-        .submit-row {
+        .submit-row,
+        .form-heading {
             align-items: stretch;
+            grid-template-columns: 1fr;
             flex-direction: column;
         }
 
@@ -298,46 +445,65 @@
             width: 100%;
         }
 
-        .trust-list,
-        .feature-strip,
         .form-grid {
             grid-template-columns: 1fr;
         }
     }
 </style>
 
-<section class="hero" id="formation">
-    <div class="hero-content">
-        <div class="eyebrow"><span class="eyebrow-dot"></span> Centre de formation agréé · Spécialiste Chauffeur VTC</div>
+<section class="academy-hero" id="formation">
+    <div class="hero-main">
+        <div class="hero-kicker">Centre de formation agréé · Chauffeur VTC</div>
         <h1 class="hero-title">
-            Préparez votre examen.
-            <span class="gradient">Intégrez la route.</span>
+            Votre dossier VTC,
+            <strong>piloté par Intégrale Academy.</strong>
         </h1>
         <p class="hero-copy">
-            Intégrale Academy vous accompagne pour votre <strong>inscription à l'examen Chauffeur VTC</strong>, avec une expérience simple, premium et centralisée.
-            Renseignez vos informations : notre équipe prend le relais.
+            Une page claire pour transmettre vos informations d'examen, puis une équipe qui vous accompagne dans les démarches administratives.
+            Ici, l'expérience est pensée comme un <strong>parcours candidat</strong>, pas comme un simple formulaire.
         </p>
         <div class="hero-actions">
-            <a class="btn btn-primary" href="#inscription">Démarrer mon inscription →</a>
-            <a class="btn btn-dark" href="#avantages">Voir l'accompagnement</a>
+            <a class="btn btn-primary" href="#inscription">Déposer mon dossier</a>
+            <a class="btn btn-ghost" href="#parcours">Comprendre le parcours</a>
         </div>
-        <div class="trust-list" aria-label="Avantages Intégrale Academy">
-            <span>Paris, Côte d'Azur, Centre France</span>
-            <span>Dossier traité rapidement</span>
-            <span>Suivi par notre équipe</span>
-            <span>Formation VTC professionnelle</span>
+        <div class="campus-list" aria-label="Campus Intégrale Academy">
+            <div class="campus-pill"><span>Paris</span><strong>Île-de-France</strong></div>
+            <div class="campus-pill"><span>Côte d'Azur</span><strong>Puget-sur-Argens</strong></div>
+            <div class="campus-pill"><span>Centre France</span><strong>Aurillac</strong></div>
         </div>
     </div>
 
-    <aside class="signup-card" id="inscription" aria-label="Formulaire d'inscription examen Chauffeur VTC">
-        <div class="browser-bar">
-            <span class="traffic-lights"><i></i><i></i><i></i></span>
-            <span>integraleacademy.com / inscription-vtc</span>
+    <aside class="hero-badge-panel" aria-label="Identité Intégrale Academy">
+        <div class="hero-logo-card">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Intégrale Academy">
         </div>
-        <div class="form-panel">
-            <h2>Inscription à l'examen Chauffeur VTC</h2>
-            <p>Complétez le formulaire sécurisé ci-dessous. Les champs Evalbox permettent à notre équipe de finaliser votre inscription auprès de la CMAR.</p>
-            <form method="POST">
+        <h2 class="panel-title">Formation, suivi, examen.</h2>
+        <p class="panel-copy">Un espace d'entrée premium pour les futurs chauffeurs VTC accompagnés par Intégrale Academy.</p>
+    </aside>
+</section>
+
+<section class="application-layout" id="inscription">
+    <aside class="support-card">
+        <h2>Un accompagnement humain avant tout.</h2>
+        <p>Nous collectons les éléments utiles pour préparer votre inscription CMAR Evalbox et assurer un suivi propre de votre dossier.</p>
+        <ul class="check-list" aria-label="Avantages du suivi">
+            <li>Informations centralisées dans un seul espace.</li>
+            <li>Équipe Intégrale Academy informée dès l'envoi.</li>
+            <li>Suivi des prochaines étapes de votre inscription.</li>
+            <li>Parcours conçu pour les candidats Chauffeur VTC.</li>
+        </ul>
+    </aside>
+
+    <div>
+        <article class="application-card">
+            <div class="form-heading">
+                <div>
+                    <h2>Déposer mon dossier candidat</h2>
+                    <p>Complétez les informations nécessaires à votre inscription à l'examen Chauffeur VTC.</p>
+                </div>
+                <div class="form-badge">VTC<br>Exam</div>
+            </div>
+            <form class="application-form" method="POST">
                 <div class="form-grid">
                     <div>
                         <label for="nom">Nom</label>
@@ -369,29 +535,33 @@
                     </div>
                 </div>
                 <div class="submit-row">
-                    <small>Vos informations sont transmises à l'équipe Intégrale Academy pour le suivi de votre dossier.</small>
+                    <small>Vos données sont transmises à l'équipe Intégrale Academy afin de préparer le traitement de votre inscription.</small>
                     <button class="btn btn-primary" type="submit">Envoyer mon dossier</button>
                 </div>
             </form>
-        </div>
-    </aside>
-</section>
+        </article>
 
-<section class="feature-strip" id="avantages" aria-label="Points forts de l'accompagnement">
-    <article class="feature-card">
-        <span class="feature-icon">🎓</span>
-        <h3>Formation complète</h3>
-        <p>Un parcours pensé pour vous préparer aux exigences de l'examen et au métier de chauffeur VTC.</p>
-    </article>
-    <article class="feature-card">
-        <span class="feature-icon">⚡</span>
-        <h3>Démarches simplifiées</h3>
-        <p>Une collecte claire des informations nécessaires pour éviter les échanges dispersés et accélérer le traitement.</p>
-    </article>
-    <article class="feature-card">
-        <span class="feature-icon">🤝</span>
-        <h3>Suivi humain</h3>
-        <p>Votre dossier est accompagné par l'équipe Intégrale Academy, de l'inscription jusqu'aux prochaines étapes.</p>
-    </article>
+        <section class="path-card" id="parcours" aria-label="Parcours candidat">
+            <h2>Le parcours en 3 étapes</h2>
+            <p>Une approche plus scolaire et plus identifiable pour Intégrale Academy, distincte d'une landing SaaS classique.</p>
+            <div class="path-grid">
+                <article class="path-step" data-step="01">
+                    <span>1</span>
+                    <h3>Vous transmettez</h3>
+                    <p>Vous renseignez vos informations personnelles et vos accès CMAR Evalbox.</p>
+                </article>
+                <article class="path-step" data-step="02">
+                    <span>2</span>
+                    <h3>Nous vérifions</h3>
+                    <p>L'équipe contrôle les éléments nécessaires et prépare votre dossier d'inscription.</p>
+                </article>
+                <article class="path-step" data-step="03">
+                    <span>3</span>
+                    <h3>Vous avancez</h3>
+                    <p>Votre suivi est centralisé pour vous aider à passer à la suite de votre parcours VTC.</p>
+                </article>
+            </div>
+        </section>
+    </div>
 </section>
 {% endblock %}
