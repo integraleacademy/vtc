@@ -1,0 +1,729 @@
+{% extends "base.html" %}
+{% block title %}Intégrale Academy - Formations professionnelles et BTS en alternance{% endblock %}
+{% block content %}
+<style>
+    .academy-hero {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 0.88fr) minmax(430px, 1.12fr);
+        gap: clamp(34px, 5vw, 68px);
+        align-items: center;
+        min-height: 620px;
+    }
+
+    .academy-hero::before {
+        content: "";
+        position: absolute;
+        inset: -78px -42px auto 28%;
+        height: 650px;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255, 138, 0, 0.20), transparent 58%);
+        z-index: -1;
+    }
+
+    .hero-kicker,
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 26px;
+        padding: 10px 16px;
+        color: #82380d;
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid #ffe3ac;
+        border-radius: 999px;
+        box-shadow: 0 12px 32px rgba(255, 138, 0, 0.10);
+        font-size: 14px;
+        font-weight: 900;
+    }
+
+    .hero-kicker::before,
+    .eyebrow::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--orange), var(--orange-2));
+        box-shadow: 0 0 0 5px rgba(255, 138, 0, 0.14);
+    }
+
+    .hero-title {
+        max-width: 700px;
+        margin-bottom: 24px;
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: clamp(48px, 7vw, 86px);
+        line-height: 0.95;
+        letter-spacing: -0.07em;
+        font-weight: 900;
+    }
+
+    .hero-title strong {
+        display: block;
+        color: transparent;
+        background: linear-gradient(105deg, var(--orange) 0%, var(--orange-2) 64%, #e5383b 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    .hero-copy {
+        max-width: 620px;
+        margin-bottom: 30px;
+        color: #465670;
+        font-size: clamp(18px, 2vw, 21px);
+        line-height: 1.5;
+    }
+
+    .hero-copy strong {
+        color: var(--navy);
+        font-weight: 900;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 26px;
+    }
+
+    .hero-actions .btn {
+        min-height: 64px;
+        padding-inline: 30px;
+        border-radius: 18px;
+        font-size: 18px;
+    }
+
+    .trust-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        color: #66758e;
+        font-size: 14px;
+        font-weight: 850;
+    }
+
+    .trust-row span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .trust-row span::before {
+        content: "✓";
+        display: grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        color: var(--green);
+        border: 1px solid rgba(34, 199, 104, 0.45);
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 900;
+    }
+
+    .campus-preview {
+        position: relative;
+        align-self: stretch;
+        display: grid;
+        align-items: center;
+    }
+
+    .academy-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 470px;
+        padding: clamp(24px, 4vw, 34px);
+        color: #fff;
+        background:
+            radial-gradient(circle at 88% 12%, rgba(255, 138, 0, 0.40), transparent 15rem),
+            linear-gradient(135deg, #101827 0%, #17233a 100%);
+        border-radius: 30px;
+        box-shadow: 0 34px 90px rgba(16, 24, 39, 0.28);
+    }
+
+    .academy-card::after {
+        content: "";
+        position: absolute;
+        inset: auto -20% -36% 12%;
+        height: 250px;
+        background: radial-gradient(circle, rgba(255, 138, 0, 0.36), transparent 70%);
+        filter: blur(18px);
+    }
+
+    .academy-card h2 {
+        position: relative;
+        z-index: 1;
+        max-width: 470px;
+        margin-bottom: 16px;
+        color: #fff;
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: clamp(30px, 3.5vw, 48px);
+        line-height: 1;
+        letter-spacing: -0.06em;
+    }
+
+    .academy-card p {
+        position: relative;
+        z-index: 1;
+        max-width: 470px;
+        color: rgba(255, 255, 255, 0.76);
+        line-height: 1.6;
+        font-weight: 650;
+    }
+
+    .campus-stack {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 14px;
+        margin-top: 28px;
+    }
+
+    .campus-pill {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+    }
+
+    .campus-pill span {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        color: #fff;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--orange), var(--orange-2));
+        font-weight: 900;
+    }
+
+    .campus-pill strong {
+        display: block;
+        color: #fff;
+        font-size: 17px;
+    }
+
+    .campus-pill small {
+        color: rgba(255, 255, 255, 0.64);
+        font-weight: 700;
+    }
+
+    .floating-stat {
+        position: absolute;
+        right: -18px;
+        bottom: 44px;
+        z-index: 2;
+        width: 220px;
+        padding: 18px;
+        border: 1px solid rgba(255, 227, 172, 0.95);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .floating-stat strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--navy);
+        font-size: 30px;
+        letter-spacing: -0.05em;
+    }
+
+    .floating-stat span {
+        color: #65738c;
+        font-size: 14px;
+        font-weight: 850;
+    }
+
+    .section-panel {
+        margin-top: 76px;
+        padding: clamp(24px, 4vw, 34px);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.90);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .section-heading h2 {
+        max-width: 760px;
+        margin-bottom: 0;
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: clamp(34px, 4vw, 54px);
+        line-height: 1;
+        letter-spacing: -0.06em;
+    }
+
+    .section-heading p {
+        max-width: 450px;
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.55;
+        font-weight: 650;
+    }
+
+    .formation-grid,
+    .proof-grid,
+    .campus-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .formation-card,
+    .proof-card,
+    .campus-card,
+    .contact-card,
+    .support-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: 0 16px 40px rgba(16, 24, 39, 0.06);
+    }
+
+    .formation-card,
+    .proof-card,
+    .campus-card {
+        min-height: 220px;
+        padding: 24px;
+    }
+
+    .formation-icon,
+    .proof-card span {
+        display: inline-grid;
+        place-items: center;
+        min-width: 48px;
+        height: 48px;
+        margin-bottom: 18px;
+        padding: 0 12px;
+        color: #fff;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--orange), var(--orange-2));
+        font-weight: 900;
+        box-shadow: 0 14px 26px rgba(251, 91, 34, 0.20);
+    }
+
+    .formation-card h3,
+    .proof-card h3,
+    .campus-card h3,
+    .support-card h2,
+    .contact-card h2 {
+        margin-bottom: 10px;
+        color: var(--navy);
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: 22px;
+        line-height: 1.12;
+        letter-spacing: -0.04em;
+    }
+
+    .formation-card p,
+    .proof-card p,
+    .campus-card p,
+    .support-card p,
+    .contact-card p {
+        color: var(--muted);
+        line-height: 1.58;
+    }
+
+    .campus-card strong {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--orange-2);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .contact-layout {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 76px;
+    }
+
+    .support-card {
+        position: sticky;
+        top: 112px;
+        overflow: hidden;
+        padding: 28px;
+    }
+
+    .support-card::before {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 6px;
+        margin-bottom: 22px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--orange), var(--orange-2));
+    }
+
+    .check-list {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .check-list li {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 10px;
+        align-items: start;
+        color: #344154;
+        font-weight: 750;
+        line-height: 1.35;
+    }
+
+    .check-list li::before {
+        content: "✓";
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 10px;
+        color: white;
+        background: var(--green);
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+    .contact-card {
+        overflow: hidden;
+    }
+
+    .form-heading {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+        padding: clamp(24px, 4vw, 34px);
+        background:
+            radial-gradient(circle at 92% 18%, rgba(255, 138, 0, 0.22), transparent 18rem),
+            linear-gradient(135deg, var(--navy) 0%, #172136 100%);
+    }
+
+    .form-heading h2 {
+        margin-bottom: 8px;
+        color: white;
+    }
+
+    .form-heading p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.76);
+    }
+
+    .form-badge {
+        min-width: 112px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        color: white;
+        text-align: center;
+        background: linear-gradient(135deg, var(--orange), var(--orange-2));
+        font-weight: 900;
+        box-shadow: var(--shadow-orange);
+    }
+
+    .contact-form {
+        padding: clamp(24px, 4vw, 34px);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .field-full {
+        grid-column: 1 / -1;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 130px;
+        resize: vertical;
+        padding: 14px 15px;
+        border: 1px solid #dce2ec;
+        border-radius: 15px;
+        color: var(--ink);
+        background: #fff;
+        font: inherit;
+        outline: none;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    textarea:focus {
+        border-color: var(--orange);
+        box-shadow: 0 0 0 4px rgba(255, 138, 0, 0.14);
+    }
+
+    .submit-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+    }
+
+    .submit-row small {
+        max-width: 440px;
+        color: var(--muted);
+        line-height: 1.45;
+        font-weight: 650;
+    }
+
+    .submit-row .btn {
+        min-height: 56px;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 1060px) {
+        .academy-hero,
+        .contact-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .campus-preview,
+        .support-card {
+            position: relative;
+            top: auto;
+        }
+
+        .formation-grid,
+        .proof-grid,
+        .campus-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .academy-hero {
+            min-height: auto;
+        }
+
+        .hero-actions,
+        .submit-row,
+        .section-heading {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .hero-actions .btn,
+        .submit-row .btn {
+            width: 100%;
+        }
+
+        .form-heading,
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .floating-stat {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            width: auto;
+            margin-top: -18px;
+        }
+    }
+</style>
+
+<section class="academy-hero" id="formation">
+    <div class="hero-main">
+        <div class="hero-kicker">Centre de formation agréé · BTS & formations professionnelles</div>
+        <h1 class="hero-title">
+            L'école qui transforme vos ambitions.
+            <strong>Formations, métiers, avenir.</strong>
+        </h1>
+        <p class="hero-copy">
+            Intégrale Academy accompagne les apprenants et les entreprises avec une offre complète : <strong>BTS en alternance, sécurité privée, sécurité incendie, secourisme et mobilité professionnelle</strong>.
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="#formations">Découvrir nos formations →</a>
+            <a class="btn btn-green" href="#contact">Parler à un conseiller</a>
+        </div>
+        <div class="trust-row" aria-label="Points forts Intégrale Academy">
+            <span>Présentiel ou distance selon les parcours</span>
+            <span>Paris, Côte d'Azur, Centre France</span>
+            <span>Accompagnement école & entreprise</span>
+        </div>
+    </div>
+
+    <aside class="campus-preview" aria-label="Campus Intégrale Academy">
+        <div class="academy-card">
+            <h2>Une école multi-campus, ancrée dans les métiers.</h2>
+            <p>Un environnement premium pour apprendre, se professionnaliser et rejoindre des secteurs qui recrutent.</p>
+            <div class="campus-stack">
+                <div class="campus-pill"><span>PA</span><div><strong>Paris</strong><small>142 rue de Rivoli · 75001 Paris</small></div></div>
+                <div class="campus-pill"><span>CA</span><div><strong>Côte d'Azur</strong><small>Puget-sur-Argens · Var</small></div></div>
+                <div class="campus-pill"><span>CF</span><div><strong>Centre France</strong><small>Aurillac · Auvergne</small></div></div>
+            </div>
+        </div>
+        <div class="floating-stat">
+            <strong>400 m²</strong>
+            <span>Dédiés aux enseignements pratiques et théoriques.</span>
+        </div>
+    </aside>
+</section>
+
+<section class="section-panel" id="formations">
+    <div class="section-heading">
+        <h2>Une offre globale pour apprendre un métier et évoluer.</h2>
+        <p>La page présente toute l'identité Intégrale Academy : BTS, sécurité, secourisme, incendie, mobilité professionnelle et accompagnement multi-campus.</p>
+    </div>
+    <div class="formation-grid" aria-label="Formations Intégrale Academy">
+        <article class="formation-card">
+            <span class="formation-icon">BTS</span>
+            <h3>BTS en alternance</h3>
+            <p>MOS, MCO, Commerce international, NDRC, Professions immobilières et Comptabilité gestion selon les modalités proposées.</p>
+        </article>
+        <article class="formation-card">
+            <span class="formation-icon">SEC</span>
+            <h3>Métiers de la sécurité</h3>
+            <p>Dirigeant, APS, protection physique des personnes, chef de poste et parcours liés à la sécurité privée.</p>
+        </article>
+        <article class="formation-card">
+            <span class="formation-icon">PRO</span>
+            <h3>Formations professionnelles</h3>
+            <p>Sécurité incendie, secourisme SST, mobilité professionnelle et modules pour développer des compétences opérationnelles.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section-panel" id="ecole">
+    <div class="section-heading">
+        <h2>Une expérience école plus claire, plus moderne, plus rassurante.</h2>
+        <p>Le design met en avant les preuves, les parcours et les lieux pour aider chaque visiteur à comprendre rapidement où s'orienter.</p>
+    </div>
+    <div class="proof-grid">
+        <article class="proof-card">
+            <span>01</span>
+            <h3>Orientation</h3>
+            <p>Un discours global pour guider étudiants, salariés, demandeurs d'emploi et entreprises vers le bon parcours.</p>
+        </article>
+        <article class="proof-card">
+            <span>02</span>
+            <h3>Professionnalisation</h3>
+            <p>Des formations connectées aux besoins terrain, aux métiers de la sécurité, du commerce, de l'immobilier et du transport.</p>
+        </article>
+        <article class="proof-card">
+            <span>03</span>
+            <h3>Accompagnement</h3>
+            <p>Une équipe identifiable, des campus visibles et des contacts simples pour passer de l'information à l'inscription.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section-panel" id="campus">
+    <div class="section-heading">
+        <h2>Nos campus.</h2>
+        <p>Des implantations complémentaires pour rendre la formation accessible et lisible sur plusieurs territoires.</p>
+    </div>
+    <div class="campus-grid">
+        <article class="campus-card">
+            <strong>Île-de-France</strong>
+            <h3>Intégrale Academy Paris</h3>
+            <p>142 rue de Rivoli, 75001 Paris. Une adresse centrale pour les parcours en présentiel et les échanges entreprises.</p>
+        </article>
+        <article class="campus-card">
+            <strong>Var</strong>
+            <h3>Intégrale Academy Côte d'Azur</h3>
+            <p>54 chemin du Carréou, 83480 Puget-sur-Argens. Le campus historique avec espaces pratiques et théoriques.</p>
+        </article>
+        <article class="campus-card">
+            <strong>Auvergne</strong>
+            <h3>Intégrale Academy Centre France</h3>
+            <p>Village d'entreprises, 14 avenue du Garric, 15000 Aurillac. Une implantation au service du Centre France.</p>
+        </article>
+    </div>
+</section>
+
+<section class="contact-layout" id="contact">
+    <aside class="support-card">
+        <h2>Besoin d'un conseil formation ?</h2>
+        <p>Dites-nous votre projet : notre équipe vous oriente vers le bon campus, la bonne modalité et le bon parcours.</p>
+        <ul class="check-list" aria-label="Avantages du contact">
+            <li>Réponse adaptée à votre profil et à votre objectif.</li>
+            <li>Orientation vers BTS, sécurité, secourisme, incendie ou mobilité professionnelle.</li>
+            <li>Informations sur les campus et les modalités de formation.</li>
+            <li>Premier échange simple avant inscription.</li>
+        </ul>
+    </aside>
+
+    <article class="contact-card">
+        <div class="form-heading">
+            <div>
+                <h2>Contactez Intégrale Academy</h2>
+                <p>Complétez le formulaire : nous revenons vers vous pour clarifier votre projet de formation.</p>
+            </div>
+            <div class="form-badge">IA<br>Conseil</div>
+        </div>
+        <form class="contact-form" method="POST">
+            <div class="form-grid">
+                <div>
+                    <label for="nom">Nom</label>
+                    <input id="nom" type="text" name="nom" autocomplete="family-name" required>
+                </div>
+                <div>
+                    <label for="prenom">Prénom</label>
+                    <input id="prenom" type="text" name="prenom" autocomplete="given-name" required>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" autocomplete="email" required>
+                </div>
+                <div>
+                    <label for="telephone">Téléphone</label>
+                    <input id="telephone" type="tel" name="telephone" autocomplete="tel">
+                </div>
+                <div>
+                    <label for="formation">Formation recherchée</label>
+                    <select id="formation" name="formation" required>
+                        <option value="">Choisir une formation</option>
+                        <option>BTS en alternance</option>
+                        <option>Métiers de la sécurité</option>
+                        <option>Sécurité incendie</option>
+                        <option>Secourisme SST</option>
+                        <option>Mobilité professionnelle</option>
+                        <option>Autre projet</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="campus">Campus souhaité</label>
+                    <select id="campus" name="campus" required>
+                        <option value="">Choisir un campus</option>
+                        <option>Paris</option>
+                        <option>Côte d'Azur</option>
+                        <option>Centre France</option>
+                        <option>À distance</option>
+                        <option>Je ne sais pas encore</option>
+                    </select>
+                </div>
+                <div class="field-full">
+                    <label for="message">Votre projet</label>
+                    <textarea id="message" name="message" placeholder="Expliquez votre objectif, votre situation ou vos questions."></textarea>
+                </div>
+            </div>
+            <div class="submit-row">
+                <small>Vos informations sont transmises à l'équipe Intégrale Academy pour vous recontacter au sujet de votre projet.</small>
+                <button class="btn btn-primary" type="submit">Envoyer ma demande →</button>
+            </div>
+        </form>
+    </article>
+</section>
+{% endblock %}
