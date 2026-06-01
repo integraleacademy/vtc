@@ -213,7 +213,8 @@
 
         .container,
         .container-full,
-        .landing-shell {
+        .landing-shell,
+        .btsmos-shell {
             width: 100%;
             margin: 0 auto;
         }
@@ -222,13 +223,14 @@
             padding: 0 0 80px;
         }
 
+        .btsmos-shell {
+            width: min(1900px, calc(100% - 32px));
+            padding: 0 0 80px;
+        }
+
         .page-section {
             width: min(1680px, calc(100% - 48px));
             margin-inline: auto;
-        }
-
-        body:has(.mos-hero) .landing-shell {
-            width: min(1900px, calc(100% - 32px));
         }
 
         .container {
@@ -383,7 +385,7 @@
             </div>
         </div>
     </header>
-    <main class="{% if request.path == '/' %}landing-shell{% elif 'admin' in request.path %}container-full{% else %}container{% endif %}">
+    <main class="{% if request.endpoint == 'bts_mos' %}btsmos-shell{% elif request.path == '/' %}landing-shell{% elif 'admin' in request.path %}container-full{% else %}container{% endif %}">
         {% block content %}{% endblock %}
     </main>
 </body>
