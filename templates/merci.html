@@ -1,15 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Merci{% endblock %}
+{% block title %}Merci - Intégrale Academy{% endblock %}
 {% block content %}
-    <div style="text-align:center; padding:30px;">
-        <h2 style="color:#27ae60; margin-bottom:15px;">✅ Formulaire transmis</h2>
-        <p style="font-size:16px; margin-bottom:25px;">
+    <div style="position:relative;overflow:hidden;text-align:center;padding:42px 22px;border-radius:28px;background:linear-gradient(135deg,#16253a,#213754);color:white;box-shadow:var(--shadow-strong);">
+        <div style="position:absolute;right:-90px;top:-90px;width:220px;height:220px;border-radius:50%;background:rgba(244,196,90,.18);"></div>
+        <div style="position:relative;width:76px;height:76px;border-radius:22px;margin:0 auto 22px;display:grid;place-items:center;background:linear-gradient(135deg,#f4c45a,#e5a946);color:#16253a;font-size:38px;font-weight:900;box-shadow:0 18px 38px rgba(0,0,0,.22);">✓</div>
+        <h2 style="position:relative;color:white;margin-bottom:14px;font-size:34px;letter-spacing:-.04em;">Dossier transmis</h2>
+        <p style="position:relative;font-size:17px;line-height:1.6;color:rgba(255,255,255,.78);margin:0 auto 28px;max-width:580px;">
             Nous avons bien reçu vos informations.<br>
-            <strong>Notre équipe va procéder à votre inscription à l'examen Chauffeur VTC dans les meilleurs délais.</strong>
+            <strong style="color:#f4c45a;">Notre équipe va procéder à votre inscription à l'examen Chauffeur VTC dans les meilleurs délais.</strong>
         </p>
-        <a href="{{ url_for('index') }}" 
-           style="background:#27ae60; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:600;">
-            ⬅️ Retour à l'accueil
+        <a class="btn btn-primary" href="{{ url_for('index') }}">
+            Retour à l'accueil
         </a>
     </div>
 {% endblock %}
