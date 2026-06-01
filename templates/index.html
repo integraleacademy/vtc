@@ -1,37 +1,397 @@
 {% extends "base.html" %}
-{% block title %}Inscription Chauffeur VTC{% endblock %}
+{% block title %}Inscription Examen Chauffeur VTC - Intégrale Academy{% endblock %}
 {% block content %}
-    <div style="text-align:center;">
-        <h2>Inscription à l'examen Chauffeur VTC</h2>
-        <p>Renseignez les informations nécessaires à votre inscription :</p>
-    </div>
-    <form method="POST" style="margin-top:20px;">
-        <label>Nom :</label><br>
-        <input type="text" name="nom" required><br><br>
+<style>
+    .hero {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(380px, 0.78fr);
+        gap: 46px;
+        align-items: center;
+    }
 
-        <label>Prénom :</label><br>
-        <input type="text" name="prenom" required><br><br>
+    .hero::after {
+        content: "";
+        position: absolute;
+        right: -7%;
+        bottom: -14%;
+        width: 52%;
+        height: 45%;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(244, 196, 90, 0.30), transparent 68%);
+        z-index: -1;
+    }
 
-        <label>Identifiant CMAR Evalbox (mail de connexion) :</label><br>
-        <input type="text" name="identifiant" required><br><br>
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 24px;
+        padding: 9px 16px;
+        border: 1px solid rgba(244, 196, 90, 0.44);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 10px 28px rgba(244, 196, 90, 0.16);
+        color: #8a4b10;
+        font-weight: 850;
+        font-size: 14px;
+    }
 
-        <label>Mot de passe CMAR Evalbox :</label><br>
-        <input type="password" name="motdepasse" required><br><br>
+    .eyebrow-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--gold), var(--orange));
+        box-shadow: 0 0 0 6px rgba(244, 196, 90, 0.18);
+    }
 
-        <label>Adresse postale :</label><br>
-        <input type="text" name="adresse" required><br><br>
+    .hero-title {
+        max-width: 720px;
+        margin-bottom: 22px;
+        color: var(--navy);
+        font-size: clamp(48px, 6vw, 82px);
+        line-height: 0.93;
+        letter-spacing: -0.075em;
+        font-weight: 950;
+    }
 
-        <label>Code postal :</label><br>
-        <input type="text" name="codepostal" required><br><br>
+    .hero-title .gradient {
+        display: block;
+        background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 48%, #ef4444 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
 
-        <label>Ville :</label><br>
-        <input type="text" name="ville" required><br><br>
+    .hero-copy {
+        max-width: 610px;
+        margin-bottom: 30px;
+        color: var(--muted);
+        font-size: clamp(18px, 2vw, 22px);
+        line-height: 1.42;
+    }
 
+    .hero-copy strong {
+        color: #344154;
+        font-weight: 900;
+    }
 
-        <div style="text-align:center;">
-            <button type="submit" style="background:#27ae60;color:white;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;">
-                📩 Envoyer
-            </button>
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 28px;
+    }
+
+    .hero-actions .btn {
+        min-width: 210px;
+        min-height: 62px;
+        border-radius: 16px;
+        font-size: 17px;
+    }
+
+    .trust-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, max-content));
+        gap: 12px 22px;
+        color: #67748a;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .trust-list span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .trust-list span::before {
+        content: "✓";
+        display: inline-grid;
+        place-items: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        color: #10b759;
+        border: 2px solid #2bd66d;
+        font-size: 11px;
+        font-weight: 900;
+    }
+
+    .signup-card {
+        position: relative;
+        padding: 14px;
+        border-radius: var(--radius-xl);
+        background: var(--navy);
+        box-shadow: 0 34px 90px rgba(16, 24, 39, 0.24);
+    }
+
+    .signup-card::before {
+        content: "";
+        position: absolute;
+        inset: auto 10% -26px;
+        height: 56px;
+        border-radius: 50%;
+        background: rgba(240, 90, 22, 0.28);
+        filter: blur(24px);
+        z-index: -1;
+    }
+
+    .browser-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 12px 12px;
+        color: #8090aa;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .traffic-lights {
+        display: flex;
+        gap: 8px;
+    }
+
+    .traffic-lights i {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        display: block;
+    }
+
+    .traffic-lights i:nth-child(1) { background: #ff5f57; }
+    .traffic-lights i:nth-child(2) { background: #ffbd2e; }
+    .traffic-lights i:nth-child(3) { background: #28c840; }
+
+    .form-panel {
+        border-radius: 20px;
+        background:
+            linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.94)),
+            radial-gradient(circle at top right, rgba(244, 196, 90, 0.30), transparent 34%);
+        padding: clamp(22px, 3vw, 30px);
+    }
+
+    .form-panel h2 {
+        margin-bottom: 8px;
+        color: var(--navy);
+        font-size: 28px;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+    }
+
+    .form-panel p {
+        margin-bottom: 22px;
+        color: var(--muted);
+        line-height: 1.5;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .field-full {
+        grid-column: 1 / -1;
+    }
+
+    .submit-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 22px;
+    }
+
+    .submit-row small {
+        color: #718096;
+        line-height: 1.35;
+        font-weight: 650;
+    }
+
+    .submit-row .btn {
+        border-radius: 16px;
+        padding-inline: 24px;
+        min-height: 58px;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    .feature-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 58px;
+    }
+
+    .feature-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 190px;
+        padding: 24px;
+        border: 1px solid rgba(233, 237, 245, 0.9);
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: 0 18px 45px rgba(16, 24, 39, 0.08);
+    }
+
+    .feature-card::after {
+        content: "";
+        position: absolute;
+        right: -36px;
+        top: -36px;
+        width: 110px;
+        height: 110px;
+        border-radius: 999px;
+        background: rgba(244, 196, 90, 0.24);
+    }
+
+    .feature-icon {
+        display: inline-grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        margin-bottom: 18px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+        color: white;
+        font-size: 22px;
+        box-shadow: 0 14px 26px rgba(240, 90, 22, 0.22);
+    }
+
+    .feature-card h3 {
+        margin-bottom: 8px;
+        color: var(--navy);
+        font-size: 20px;
+        letter-spacing: -0.035em;
+    }
+
+    .feature-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.55;
+    }
+
+    @media (max-width: 1050px) {
+        .hero {
+            grid-template-columns: 1fr;
+        }
+
+        .signup-card {
+            max-width: 720px;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .landing-shell {
+            padding-top: 34px;
+        }
+
+        .hero-actions,
+        .submit-row {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .hero-actions .btn,
+        .submit-row .btn {
+            width: 100%;
+        }
+
+        .trust-list,
+        .feature-strip,
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="hero" id="formation">
+    <div class="hero-content">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Centre de formation agréé · Spécialiste Chauffeur VTC</div>
+        <h1 class="hero-title">
+            Préparez votre examen.
+            <span class="gradient">Intégrez la route.</span>
+        </h1>
+        <p class="hero-copy">
+            Intégrale Academy vous accompagne pour votre <strong>inscription à l'examen Chauffeur VTC</strong>, avec une expérience simple, premium et centralisée.
+            Renseignez vos informations : notre équipe prend le relais.
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="#inscription">Démarrer mon inscription →</a>
+            <a class="btn btn-dark" href="#avantages">Voir l'accompagnement</a>
         </div>
-    </form>
+        <div class="trust-list" aria-label="Avantages Intégrale Academy">
+            <span>Paris, Côte d'Azur, Centre France</span>
+            <span>Dossier traité rapidement</span>
+            <span>Suivi par notre équipe</span>
+            <span>Formation VTC professionnelle</span>
+        </div>
+    </div>
+
+    <aside class="signup-card" id="inscription" aria-label="Formulaire d'inscription examen Chauffeur VTC">
+        <div class="browser-bar">
+            <span class="traffic-lights"><i></i><i></i><i></i></span>
+            <span>integraleacademy.com / inscription-vtc</span>
+        </div>
+        <div class="form-panel">
+            <h2>Inscription à l'examen Chauffeur VTC</h2>
+            <p>Complétez le formulaire sécurisé ci-dessous. Les champs Evalbox permettent à notre équipe de finaliser votre inscription auprès de la CMAR.</p>
+            <form method="POST">
+                <div class="form-grid">
+                    <div>
+                        <label for="nom">Nom</label>
+                        <input id="nom" type="text" name="nom" autocomplete="family-name" required>
+                    </div>
+                    <div>
+                        <label for="prenom">Prénom</label>
+                        <input id="prenom" type="text" name="prenom" autocomplete="given-name" required>
+                    </div>
+                    <div class="field-full">
+                        <label for="identifiant">Identifiant CMAR Evalbox (mail de connexion)</label>
+                        <input id="identifiant" type="email" name="identifiant" autocomplete="email" required>
+                    </div>
+                    <div class="field-full">
+                        <label for="motdepasse">Mot de passe CMAR Evalbox</label>
+                        <input id="motdepasse" type="password" name="motdepasse" autocomplete="current-password" required>
+                    </div>
+                    <div class="field-full">
+                        <label for="adresse">Adresse postale</label>
+                        <input id="adresse" type="text" name="adresse" autocomplete="street-address" required>
+                    </div>
+                    <div>
+                        <label for="codepostal">Code postal</label>
+                        <input id="codepostal" type="text" name="codepostal" inputmode="numeric" autocomplete="postal-code" required>
+                    </div>
+                    <div>
+                        <label for="ville">Ville</label>
+                        <input id="ville" type="text" name="ville" autocomplete="address-level2" required>
+                    </div>
+                </div>
+                <div class="submit-row">
+                    <small>Vos informations sont transmises à l'équipe Intégrale Academy pour le suivi de votre dossier.</small>
+                    <button class="btn btn-primary" type="submit">Envoyer mon dossier</button>
+                </div>
+            </form>
+        </div>
+    </aside>
+</section>
+
+<section class="feature-strip" id="avantages" aria-label="Points forts de l'accompagnement">
+    <article class="feature-card">
+        <span class="feature-icon">🎓</span>
+        <h3>Formation complète</h3>
+        <p>Un parcours pensé pour vous préparer aux exigences de l'examen et au métier de chauffeur VTC.</p>
+    </article>
+    <article class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3>Démarches simplifiées</h3>
+        <p>Une collecte claire des informations nécessaires pour éviter les échanges dispersés et accélérer le traitement.</p>
+    </article>
+    <article class="feature-card">
+        <span class="feature-icon">🤝</span>
+        <h3>Suivi humain</h3>
+        <p>Votre dossier est accompagné par l'équipe Intégrale Academy, de l'inscription jusqu'aux prochaines étapes.</p>
+    </article>
+</section>
 {% endblock %}
