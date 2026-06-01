@@ -5,10 +5,12 @@
     .mos-hero {
         position: relative;
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(560px, 0.72fr);
-        gap: clamp(28px, 5vw, 62px);
+        grid-template-columns: minmax(0, 1fr) minmax(560px, 0.92fr);
+        gap: clamp(28px, 4vw, 56px);
         align-items: center;
-        min-height: 610px;
+        min-height: calc(100vh - 92px);
+        margin-top: 0;
+        padding-block: clamp(34px, 5vw, 74px);
     }
 
     .mos-hero::before {
@@ -48,13 +50,14 @@
     }
 
     .mos-title {
-        max-width: 820px;
+        max-width: 1040px;
         margin-bottom: 24px;
         font-family: 'Poppins', 'Inter', sans-serif;
-        font-size: clamp(44px, 4.4vw, 92px);
-        line-height: 0.98;
-        letter-spacing: -0.055em;
+        font-size: clamp(40px, 5vw, 96px);
+        line-height: 0.94;
+        letter-spacing: -0.06em;
         font-weight: 900;
+        text-wrap: balance;
     }
 
     .mos-title strong {
@@ -66,7 +69,7 @@
     }
 
     .mos-copy {
-        max-width: 700px;
+        max-width: 820px;
         margin-bottom: 30px;
         color: #465670;
         font-size: clamp(18px, 2vw, 21px);
@@ -106,7 +109,8 @@
     .mos-panel {
         position: relative;
         overflow: visible;
-        padding: clamp(24px, 4vw, 34px);
+        width: 100%;
+        padding: clamp(24px, 4vw, 42px);
         color: #fff;
         background:
             radial-gradient(circle at 90% 10%, rgba(255, 138, 0, 0.38), transparent 16rem),
@@ -116,7 +120,7 @@
 
     .mos-panel h2 {
         color: #fff;
-        font-size: clamp(28px, 3vw, 42px);
+        font-size: clamp(30px, 3.2vw, 54px);
         line-height: 1;
         letter-spacing: -0.055em;
     }
@@ -137,16 +141,16 @@
     }
 
     .key-grid {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
         margin-top: 24px;
         overflow: visible;
     }
 
     .key-card {
-        flex: 1 1 0;
         min-width: 0;
-        padding: 18px;
+        padding: clamp(16px, 2vw, 24px);
         border: 1px solid rgba(255, 255, 255, 0.13);
         border-radius: 18px;
         background: rgba(255, 255, 255, 0.08);
@@ -189,8 +193,8 @@
     }
 
     .section-panel {
-        margin-top: 76px;
-        padding: clamp(24px, 4vw, 34px);
+        margin-top: 42px;
+        padding: clamp(28px, 4vw, 54px);
         border: 1px solid var(--line);
         border-radius: var(--radius);
         background: rgba(255, 255, 255, 0.90);
@@ -206,10 +210,10 @@
     }
 
     .section-heading h2 {
-        max-width: 820px;
+        max-width: 980px;
         margin-bottom: 0;
         font-family: 'Poppins', 'Inter', sans-serif;
-        font-size: clamp(34px, 4vw, 54px);
+        font-size: clamp(34px, 4.8vw, 76px);
         line-height: 1;
         letter-spacing: -0.06em;
     }
@@ -292,7 +296,7 @@
     }
 
     .wide-strip {
-        width: min(1780px, calc(100vw - 32px));
+        width: min(1900px, calc(100vw - 32px));
         margin-left: 50%;
         transform: translateX(-50%);
     }
@@ -368,6 +372,10 @@
             grid-template-columns: 1fr;
         }
 
+        .mos-title {
+            font-size: clamp(40px, 12vw, 74px);
+        }
+
         .detail-grid,
         .program-grid,
         .after-grid,
@@ -377,13 +385,14 @@
         }
 
         .key-grid {
-            flex-direction: column;
+            grid-template-columns: 1fr;
         }
     }
 
     @media (max-width: 720px) {
         .mos-hero {
             min-height: auto;
+            padding-block: 28px;
         }
 
         .mos-actions,
@@ -400,7 +409,7 @@
     }
 </style>
 
-<section class="mos-hero page-section">
+<section class="mos-hero">
     <div>
         <div class="mos-kicker">BTS officiel · Titre RNCP n°41000 · Alternance</div>
         <h1 class="mos-title">
@@ -428,7 +437,7 @@
     </aside>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Devenez expert en sûreté et sécurité privée.</h2>
         <p>Une refonte claire de la page BTS MOS : objectif, modalités, programme, avantages, examen et débouchés.</p>
@@ -452,7 +461,7 @@
     </div>
 </section>
 
-<section class="section-panel split-section page-section">
+<section class="section-panel split-section">
     <div class="dark-feature">
         <span class="mos-eyebrow">À vous de choisir</span>
         <h2>Présentiel à Puget-sur-Argens ou formation 100% à distance.</h2>
@@ -477,7 +486,7 @@
     </div>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Les 4 grands pôles du BTS MOS.</h2>
         <p>Le programme forme des professionnels capables de préparer, organiser, manager et suivre une prestation de sécurité.</p>
@@ -516,7 +525,7 @@
     </div>
 </section>
 
-<section class="section-panel wide-strip page-section">
+<section class="section-panel wide-strip">
     <div class="section-heading">
         <h2>Comment se déroule l'inscription ?</h2>
         <p>La page originale insiste sur un parcours simple : candidature, recherche d'entreprise, contrat d'apprentissage puis rentrée en formation.</p>
@@ -529,7 +538,7 @@
     </div>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Prérequis, public et accessibilité.</h2>
         <p>Des informations pratiques manquaient : elles sont maintenant visibles pour mieux répondre aux questions des candidats.</p>
@@ -544,7 +553,7 @@
     </ul>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Moyens pédagogiques.</h2>
         <p>La refonte met davantage en avant les conditions d'apprentissage évoquées sur la page BTS MOS.</p>
@@ -556,7 +565,7 @@
     </div>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Nos avantages.</h2>
         <p>Une expérience d’école pensée pour accompagner les étudiants pendant les deux années de formation.</p>
@@ -571,7 +580,7 @@
     </div>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>L’examen final.</h2>
         <p>En fin de deuxième année, entre avril et juin, les étudiants sont convoqués par le ministère de l’Éducation Nationale.</p>
@@ -586,7 +595,7 @@
     </div>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Que faire après un BTS MOS ?</h2>
         <p>Le BTS MOS ouvre sur la poursuite d’études, les concours de la fonction publique et les métiers d’encadrement sécurité.</p>
@@ -598,7 +607,7 @@
     </div>
 </section>
 
-<section class="section-panel page-section">
+<section class="section-panel">
     <div class="section-heading">
         <h2>Prêt(e) pour la pré-inscription 2026 ?</h2>
         <p>Choisissez le canal qui vous convient pour avancer rapidement avec Intégrale Academy.</p>
