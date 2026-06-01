@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Merci - Intégrale Academy{% endblock %}
+{% block content %}
+    <div style="position:relative;overflow:hidden;text-align:center;padding:42px 22px;border-radius:28px;background:linear-gradient(135deg,#101827,#17233a);color:white;box-shadow:var(--shadow-soft);">
+        <div style="position:absolute;right:-90px;top:-90px;width:220px;height:220px;border-radius:50%;background:rgba(255,138,0,.22);"></div>
+        <div style="position:relative;width:76px;height:76px;border-radius:22px;margin:0 auto 22px;display:grid;place-items:center;background:linear-gradient(135deg,#ff8a00,#fb5b22);color:white;font-size:38px;font-weight:900;box-shadow:0 18px 38px rgba(0,0,0,.22);">✓</div>
+        <h2 style="position:relative;color:white;margin-bottom:14px;font-size:34px;letter-spacing:-.04em;">Demande envoyée</h2>
+        <p style="position:relative;font-size:17px;line-height:1.6;color:rgba(255,255,255,.78);margin:0 auto 28px;max-width:620px;">
+            Merci pour votre message.<br>
+            <strong style="color:#ffca75;">L'équipe Intégrale Academy va revenir vers vous pour vous orienter vers la formation et le campus adaptés à votre projet.</strong>
+        </p>
+        <a class="btn btn-primary" href="{{ url_for('index') }}">
+            Retour à l'accueil
+        </a>
+    </div>
+{% endblock %}
